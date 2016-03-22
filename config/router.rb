@@ -24,25 +24,25 @@ class Router
 
   def get(url_str, resource, action)
     if get? && route_match?(url_str)
-      send_to_controller(resouce, action)
+      send_to_controller(resource, action)
     end
   end
 
   def post(url_str, resource, action)
     if post? && route_match?(url_str)
-      send_to_controller(resouce, action)
+      send_to_controller(resource, action)
     end
   end
 
   def put(url_str, resource, action)
     if put? && route_match?(url_str)
-      send_to_controller(resouce, action)
+      send_to_controller(resource, action)
     end
   end
 
   def delete(url_str, resource, action)
     if delete? && route_match?(url_str)
-      send_to_controller(resouce, action)
+      send_to_controller(resource, action)
     end
   end
 

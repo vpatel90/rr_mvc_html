@@ -29,7 +29,7 @@ loop do
 
   request_count += 1
 
-  if request.split(/ /).first == "GET"
+  if ["GET", "DELETE"].include?(request.split(/ /).first)
     while "\r\n" != (line = socket.gets) do
       request += line
     end
