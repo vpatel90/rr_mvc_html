@@ -22,7 +22,10 @@ loop do
 
   request += socket.gets
 
-  next if request.split(/ /)[1] == "/favicon.ico" #Just skip favicon requests
+  if request.split(/ /)[1] == "/favicon.ico" #Just skip favicon requests
+    socket.close
+    next
+  end
 
   request_count += 1
 
@@ -57,14 +60,23 @@ loop do
 
   response = Router.new(@request).route
 
+  if response.nil?
+    puts "*" * 20
+    puts "RESPONSE WAS NIL!"
+    puts "*" * 20
+    socket.print "HTTP/1.1 500 SERVER ERROR\r\n"
+    socket.close
+    next
+  end
+
 
   # We need to include the Content-Type and Content-Length headers
   # to let the client know the size and type of data
   # contained in the response. Note that HTTP is whitespace
   # sensitive, and expects each header line to end with CRLF (i.e. "\r\n")
-  socket.print "HTTP/1.1 200 OK\r\n" +
-               "Content-Type: application/json\r\n" +
-               "Content-Length: #{response.to_json.bytesize}\r\n" +
+  socket.print "HTTP/1.1 #{response[:status]}\r\n" +
+               "Content-Type: #{response[:as]}\r\n" +
+               "Content-Length: #{response[:body].bytesize}\r\n" +
                "Connection: close\r\n"
 
   # Print a blank line to separate the header from the response body,
@@ -72,7 +84,7 @@ loop do
   socket.print "\r\n"
 
   # Print the actual response body, which is just "Hello World!\n"
-  socket.print response.to_json
+  socket.print response[:body]
 
   socket.close # Close the socket, terminating the connection
   # If we don't close the socket, the response is never fully processed

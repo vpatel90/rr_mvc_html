@@ -13,4 +13,12 @@ class ApplicationController
   def params
     @request[:params]
   end
+
+  def render(body, opts = {})
+    {
+      body: body,
+      status: opts.fetch(:status, "200 OK"),
+      as: opts.fetch(:as, "application/json")
+    }
+  end
 end
