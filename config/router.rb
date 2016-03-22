@@ -13,10 +13,10 @@ class Router
     # get(<route_string>, <controller_name_constant>, <action_name_symbol)
     # put('/tweets/:id/edit', TweetsController, :edit)
     #This route would be for putting an update for the tweet where :id is the number in the URL
+    #
+    # Put your routes in this array using the get, post, put, delete methods below. (remember order matters)
     [
-      get('/users/:id/edit', UsersController, :edit),
-      get('/users/:id', UsersController, :show),
-      get('/users', UsersController, :index),
+
     ].find(&:itself)
   end
 
