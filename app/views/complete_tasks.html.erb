@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" charset="utf-8">
+    <link rel="stylesheet" href="" charset="utf-8">
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1> Complete Tasks! </h1>
+
+    <% if @complete_tasks.empty? %>
+      You have no Completed Tasks
+    <% else %>
+    <ol>
+      <% @complete_tasks.each do |task| %>
+        <li><%= task.body %> -- <%= task.completed %></li>
+      <% end %>
+    </ol>
+    <% end %>
+
+    <header>
+    </header>
+    <main class="main1">
+    </main>
+    <footer>
+    </footer>
+  </body>
+</html>

@@ -1,6 +1,8 @@
 class TasksController < ApplicationController
   def index
     @all_tasks = get_all_tasks
+    @incomplete_tasks = get_incomplete_tasks
+    @complete_tasks = get_complete_tasks
     return render @all_tasks.to_json if @request[:format] == "json"
     render_template 'all_tasks.html.erb'
   end
@@ -33,12 +35,30 @@ class TasksController < ApplicationController
     @task = get_task_at_id
     return render({message:"404"}.to_json, status:"404, User Not Found") if @task.nil?
     return render {message:"Deleted"}.to_json if @request[:format] == "json"
-
     get_all_tasks.delete(@task)
+  end
 
+  def incomplete
+    @incomplete_tasks = get_incomplete_tasks
+    return render @incomplete_tasks.to_json if @request[:format] == "json"
+    render_template 'incomplete_tasks.html.erb'
+  end
+
+  def complete
+    @complete_tasks = get_complete_tasks
+    return render @complete_tasks.to_json if @request[:format] == "json"
+    render_template 'complete_tasks.html.erb'
   end
 
   private
+
+  def get_complete_tasks
+    get_all_tasks.select { |tsk| tsk.completed == true }
+  end
+
+  def get_incomplete_tasks
+    get_all_tasks.select { |tsk| tsk.completed == false }
+  end
 
   def get_all_tasks
     TaskSetUp.all_tasks
