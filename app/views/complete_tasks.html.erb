@@ -13,7 +13,7 @@
     <% else %>
     <ol>
       <% @complete_tasks.each do |task| %>
-        <li><%= task.body %> -- <%= task.completed %></li>
+        <li><%= task.body %> &#x2714;</li>
       <% end %>
     </ol>
     <% end %>

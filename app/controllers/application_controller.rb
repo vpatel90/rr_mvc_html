@@ -23,7 +23,8 @@ class ApplicationController
     {
       body: body,
       status: opts.fetch(:status, "200 OK"),
-      as: opts.fetch(:as, "application/json")
+      as: opts.fetch(:as, "application/json"),
+      location: opts.fetch(:location, "")
     }
   end
 end

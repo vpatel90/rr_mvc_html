@@ -1,10 +1,12 @@
 class TasksController < ApplicationController
   def index
-    @all_tasks = get_all_tasks
     @incomplete_tasks = get_incomplete_tasks
     @complete_tasks = get_complete_tasks
-    return render @all_tasks.to_json if @request[:format] == "json"
-    render_template 'all_tasks.html.erb'
+    if @request[:format] == "json"
+      render(@incomplete_tasks + @complete_tasks).to_json
+    else
+      render_template 'all_tasks.html.erb'
+    end
   end
 
   def show
@@ -48,6 +50,12 @@ class TasksController < ApplicationController
     @complete_tasks = get_complete_tasks
     return render @complete_tasks.to_json if @request[:format] == "json"
     render_template 'complete_tasks.html.erb'
+  end
+
+  def mark_complete
+    @task = get_task_at_id
+    @task.completed = true
+    render '', status: '303 SEE OTHER', location: "/"
   end
 
   private

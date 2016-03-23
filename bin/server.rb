@@ -27,7 +27,7 @@ module TaskSetUp
       Task.new(TaskSetUp::ID, "wake up"),
       Task.new(TaskSetUp::ID, "drink coffee"),
       Task.new(TaskSetUp::ID, "go to school"),
-      Task.new(TaskSetUp::ID, "find a job")
+      #Task.new(TaskSetUp::ID, "find a job")
     ]
   end
 end
@@ -153,6 +153,8 @@ loop do
   # contained in the response. Note that HTTP is whitespace
   # sensitive, and expects each header line to end with CRLF (i.e. "\r\n")
   socket.print "HTTP/1.1 #{response[:status]}\r\n" +
+               "Location: #{response[:location]}\r\n" +
+               "Cache-Control: no-cache, no-store\r\n" +
                "Content-Type: #{response[:as]}\r\n" +
                "Content-Length: #{response[:body].bytesize}\r\n" +
                "Connection: close\r\n"

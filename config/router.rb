@@ -16,6 +16,7 @@ class Router
     #
     # Put your routes in this array using the get, post, put, delete methods below. (remember order matters)
     [
+      get('/tasks/:id/complete', TasksController, :mark_complete),
       get('/', TasksController, :index),
       get('/tasks/complete', TasksController, :complete),
       get('/tasks/incomplete', TasksController, :incomplete),
