@@ -55,6 +55,7 @@ class TasksController < ApplicationController
   def mark_complete
     @task = get_task_at_id
     @task.completed = true
+    binding.pry
     render '', status: '303 SEE OTHER', location: "/"
   end
 
