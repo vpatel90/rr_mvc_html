@@ -1,6 +1,9 @@
 class TweetsController < ApplicationController
   def index
-    render "I am a tweet!".to_json, status: "200 OK"
+    #f = File.read('app/views/test.html')
+    #render f, status: "200 OK", as: "text/html"
+
+    render_template 'app/views/test.html'
     # render "I am a tweet!".to_json, status: "404 NOT FOUND"
     # render params.to_json
     # Use the render method now to specify what should be rendered to the screen

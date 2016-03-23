@@ -14,6 +14,10 @@ class ApplicationController
     @request[:params]
   end
 
+  def render_template(location, opts = {})
+    render(File.read(location), opts.merge({ as: "text/html" }))
+  end
+
   def render(body, opts = {})
     {
       body: body,

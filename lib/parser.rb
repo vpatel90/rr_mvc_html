@@ -20,13 +20,15 @@ class Parser
     method = pieces[0]
     uri    = pieces[1]
     http_v = pieces[2]
-    route, query_param_string = uri.split('?')
+    route_format, query_param_string = uri.split('?')
+    route,  format = route_format.split('.')
     if route == "/"
       return {
         method: method,
         uri: uri,
         http_version: http_v,
         route: route,
+        format: format || 'html',
         params: parse_params(route, query_param_string)
       }
     else
@@ -37,6 +39,7 @@ class Parser
         uri: uri,
         http_version: http_v,
         route: route,
+        format: format,
         params: params
       }
     end
