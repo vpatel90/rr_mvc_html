@@ -18,6 +18,21 @@ module App
     ]
   end
 
+end
+
+module TaskSetUp
+  def TaskSetUp.new_id
+    TaskSetUp.all_tasks.length + 1
+  end
+  def TaskSetUp.all_tasks
+    @all_tasks ||= [
+      Task.new(1, "wake up"),
+      Task.new(2, "drink coffee"),
+      Task.new(3, "go to school"),
+      Task.new(4, "find a job")
+    ]
+  end
+end
 system('clear')
 
 # Initialize a TCPServer object that will listen

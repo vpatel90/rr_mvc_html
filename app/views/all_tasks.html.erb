@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" charset="utf-8">
+    <link rel="stylesheet" href="" charset="utf-8">
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1> All Tasks! </h1>
+    <ul>
+      <% @all_tasks.each do |task| %>
+      <li>| <%= task.id %> | <%= task.body %> | <%= task.completed %> |</li>
+      <% end %>
+    </ul>
+    <header>
+    </header>
+    <main class="main1">
+    </main>
+    <footer>
+    </footer>
+  </body>
+</html>
