@@ -21,15 +21,13 @@ module App
 end
 
 module TaskSetUp
-  def TaskSetUp.new_id
-    TaskSetUp.all_tasks.length + 1
-  end
+  ID = 1
   def TaskSetUp.all_tasks
     @all_tasks ||= [
-      Task.new(1, "wake up"),
-      Task.new(2, "drink coffee"),
-      Task.new(3, "go to school"),
-      Task.new(4, "find a job")
+      Task.new(TaskSetUp::ID, "wake up"),
+      Task.new(TaskSetUp::ID, "drink coffee"),
+      Task.new(TaskSetUp::ID, "go to school"),
+      Task.new(TaskSetUp::ID, "find a job")
     ]
   end
 end

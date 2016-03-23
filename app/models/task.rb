@@ -4,6 +4,7 @@ class Task
     @id = id
     @body = body
     @completed = false
+    TaskSetUp::ID += 1
   end
 
   def to_json(_ = nil)
