@@ -15,7 +15,8 @@ class ApplicationController
   end
 
   def render_template(location, opts = {})
-    render(File.read(location), opts.merge({ as: "text/html" }))
+    template = ERB.new(File.read("app/views/" + location))
+    render(template.result(binding), opts.merge({ as: "text/html" }))
   end
 
   def render(body, opts = {})

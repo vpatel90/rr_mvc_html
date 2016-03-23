@@ -1,8 +1,22 @@
 require 'socket'
+require 'timeout'
+require 'erb'
 require 'json'
 require 'pry'
 require_relative '../config/router'
 require_relative '../lib/all'
+
+module App
+  # Place all data here inside of a method
+  def App.tweets
+    # This is an example
+    @all_tweets ||= [
+      { message: "cool tweet!", id: 1},
+      { message: "badd tweet!", id: 2},
+      { message: "ohno tweet!", id: 3},
+      { message: "eehhh tweet", id: 4},
+    ]
+  end
 
 system('clear')
 
@@ -29,14 +43,20 @@ loop do
 
   request_count += 1
 
-  if ["GET", "DELETE"].include?(request.split(/ /).first)
-    while "\r\n" != (line = socket.gets) do
-      request += line
+  begin
+    Timeout.timeout(1) do # Just stop the request if its lasting too long
+      if ["GET", "DELETE"].include?(request.split(/ /).first)
+        while "\r\n" != (line = socket.gets) do
+          request += line
+        end
+      else
+        until (line = socket.gets) =~ /--\r\n/ do
+          request += line # Read the first line of the request (the Request-Line)
+        end
+      end
     end
-  else
-    until (line = socket.gets) =~ /--\r\n/ do
-      request += line # Read the first line of the request (the Request-Line)
-    end
+  rescue Timeout::Error => error
+    puts error.inspect
   end
 
 
@@ -68,8 +88,36 @@ loop do
     <h1>500 Error</h1>
     <hr/>
     <h3>This means there was an error in your server code caused by one or more of the following:</h3>
-    <iframe src='//giphy.com/embed/6uMqzcbWRhoT6' width='480' height='360' frameBorder='0' class='giphy-embed' allowFullScreen></iframe><p><a href='http://giphy.com/gifs/cat-animal-kitten-6uMqzcbWRhoT6'>via GIPHY</a></p>
+    <iframe src='//giphy.com/embed/6uMqzcbWRhoT6' width='240' height='180' frameBorder='0' class='giphy-embed' allowFullScreen></iframe><p><a href='http://giphy.com/gifs/cat-animal-kitten-6uMqzcbWRhoT6'></a></p>
     <ul>
+      <li>You are missing routes for #{@request[:route].inspect}</li>
+      <li>Your existing routes are not properly formed</li>
+      <li>Your controller action is empty</li>
+      <li>Your controller action is not calling render</li>
+    </ul>
+    """
+    socket.print "HTTP/1.1 500 SERVER ERROR\r\n" +
+                 "Content-Type: text/html\r\n" +
+                 "Content-Length: #{response.bytesize}\r\n" +
+                 "Connection: close\r\n"
+    socket.print "\r\n"
+    socket.print response
+    socket.close
+    next
+  end
+
+  unless response[:body].respond_to?(:bytesize)
+    puts "*" * 20
+    puts "RESPONSE BODY WAS WRONG TYPE"
+    puts "Did you forget to call 'to_json'?"
+    puts "*" * 20
+    response = """
+    <h1>500 Error</h1>
+    <hr/>
+    <h3>This means there was an error in your server code caused by one or more of the following:</h3>
+    <iframe src='//giphy.com/embed/6uMqzcbWRhoT6' width='240' height='180' frameBorder='0' class='giphy-embed' allowFullScreen></iframe><p><a href='http://giphy.com/gifs/cat-animal-kitten-6uMqzcbWRhoT6'></a></p>
+    <ul>
+      <li><strong>Your response body could not be parsed. Remember it needs to be a string.</strong></li>
       <li>You are missing routes for #{@request[:route].inspect}</li>
       <li>Your existing routes are not properly formed</li>
       <li>Your controller action is empty</li>
