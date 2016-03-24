@@ -43,6 +43,7 @@ main {
   margin: 8px;
 }
 .main1 ol li a {
+
   padding: 3px 5px;
   border: 1px solid;
   border-bottom-left-radius: 25%50%;
@@ -54,6 +55,10 @@ main {
   text-decoration: none;
   color: #5E412F;
   font-size: 10px;
+  background-image: linear-gradient(to top, #F0A830, #F07818);
+}
+.main1 ol li a:hover {
+    background-image: linear-gradient(to bottom, #F0A830, #F07818);
 }
 
 .main1 {
