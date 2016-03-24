@@ -4,7 +4,8 @@ class TasksController < ApplicationController
       @incomplete_tasks = get_incomplete_tasks
       @complete_tasks = get_complete_tasks
       if @request[:format] == "json"
-        render(@incomplete_tasks + @complete_tasks).to_json
+        all = @incomplete_tasks + @complete_tasks
+        render all.to_json
       else
         render_template 'all_tasks.html.erb'
       end

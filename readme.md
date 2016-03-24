@@ -1,3 +1,5 @@
+[![Code Climate](https://codeclimate.com/github/vpatel90/rr_mvc_html/badges/gpa.svg)](https://codeclimate.com/github/vpatel90/rr_mvc_html)
+
 # Request / Response MVC! To-Do List
 
 
@@ -9,7 +11,7 @@
 * If the type of the request is not specified, it can be assumed to be `GET`.
 * Highly recommended to use `GET` requests through a browser
 
-	![Image of Yaktocat](http://i.imgur.com/dwqahqr.png?1 =450x)
+	![Image of Home Page](http://i.imgur.com/dwqahqr.png?1 =450x)
 
 
 
