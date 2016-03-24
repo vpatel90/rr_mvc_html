@@ -21,6 +21,11 @@ class TasksController < ApplicationController
     @task = get_task_at_id
     return render({message:"404"}.to_json, status:"404, User Not Found") if @task.nil?
     return render @task.to_json if @request[:format] == "json"
+    if @task.completed
+      @title = "Completed Task"
+    else
+      @title = "Incomplete Task"
+    end
     render_template 'task.html.erb'
   end
 
