@@ -58,13 +58,13 @@ main {
 
 .main1 {
   text-align: left;
-  margin-right: 30px;
+  margin: 0 30px;
   display: inline-block;
   vertical-align: top;
 }
 .main2 {
   text-align: left;
-  margin-left: 30px;
+  margin: 0 30px;
   display: inline-block;
   vertical-align: top;
 }
