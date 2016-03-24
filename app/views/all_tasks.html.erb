@@ -1,38 +1,50 @@
 <html>
   <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" charset="utf-8">
-    <link rel="stylesheet" href="" charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Tangerine">
+    <link rel="stylesheet" href="/assets/main.css" charset="utf-8">
     <meta charset="utf-8">
-    <title></title>
+    <title>All Tasks</title>
   </head>
   <body>
-    <form>
-      Search: <input type="text" name="search"><br>
-    </form>
-    <h1> Incomplete Tasks! </h1>
-    <% if @incomplete_tasks.empty? %>
-      You have no Incompleted Tasks
-    <% else %>
-      <ol>
-        <% @incomplete_tasks.each do |task| %>
-        <li><%= task.body %> &#x2718; <a href="/tasks/<%= task.id %>/complete?back=/">Complete</a></li>
+    <nav class="nav">
+      <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/tasks/incomplete">Incomplete</a></li>
+      <li><a href="/tasks/complete">Complete</a></li>
+      <li>
+        <form>
+          Search: <input type="text" name="search"><br>
+        </form>
+        </li>
+    </ul>
+    </nav>
+    <h1 class="home"> To-Do List! </h1>
+    <main>
+      <div class="main1">
+        <h1> Incomplete Tasks! </h1>
+        <% if @incomplete_tasks.empty? %>
+          You have no Incompleted Tasks
+        <% else %>
+          <ol>
+            <% @incomplete_tasks.each do |task| %>
+            <li><%= task.body %> &#x2718; <a href="/tasks/<%= task.id %>/complete?back=/">Complete</a></li>
+            <% end %>
+          </ol>
         <% end %>
-      </ol>
-    <% end %>
-
-    <h1> Complete Tasks! </h1>
-    <% if @complete_tasks.empty? %>
-      You have no Completed Tasks
-    <% else %>
-      <ol>
-        <% @complete_tasks.each do |task| %>
-        <li><%= task.body %> &#x2714;</li>
+      </div>
+      <div class="main2">
+        <h1> Complete Tasks! </h1>
+        <% if @complete_tasks.empty? %>
+          You have no Completed Tasks
+        <% else %>
+          <ol>
+            <% @complete_tasks.each do |task| %>
+            <li><%= task.body %> &#x2714;</li>
+            <% end %>
+          </ol>
         <% end %>
-      </ol>
-    <% end %>
-    <header>
-    </header>
-    <main class="main1">
+      </div>
     </main>
     <footer>
     </footer>

@@ -1,10 +1,17 @@
 class TasksController < ApplicationController
   def index
-    @incomplete_tasks = get_incomplete_tasks
-    @complete_tasks = get_complete_tasks
-    if @request[:format] == "json"
-      render(@incomplete_tasks + @complete_tasks).to_json
+    if params[:search].nil? || params[:search].empty?
+      @incomplete_tasks = get_incomplete_tasks
+      @complete_tasks = get_complete_tasks
+      if @request[:format] == "json"
+        render(@incomplete_tasks + @complete_tasks).to_json
+      else
+        render_template 'all_tasks.html.erb'
+      end
     else
+      tasks = get_search
+      @incomplete_tasks = tasks.select {|tsk| tsk.completed == false}
+      @complete_tasks = tasks.select {|tsk| tsk.completed == true}
       render_template 'all_tasks.html.erb'
     end
   end
@@ -56,6 +63,11 @@ class TasksController < ApplicationController
     @task = get_task_at_id
     @task.completed = true
     render '', status: '303 SEE OTHER', location: params[:back]
+  end
+
+  def get_search
+    str = params[:search]
+    get_all_tasks.select {|task| task.body.downcase.match(/#{str.downcase}/)}
   end
 
   private

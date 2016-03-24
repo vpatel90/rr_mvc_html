@@ -1,27 +1,40 @@
 <html>
   <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" charset="utf-8">
-    <link rel="stylesheet" href="" charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Tangerine">
+    <link rel="stylesheet" href="/assets/main.css" charset="utf-8">
     <meta charset="utf-8">
-    <title></title>
+    <title>Complete Tasks</title>
   </head>
   <body>
-    <h1> Complete Tasks! </h1>
+    <nav class="nav">
+      <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/tasks/incomplete">Incomplete</a></li>
+      <li><a href="/tasks/complete">Complete</a></li>
+      <li>
+        <form>
+          Search: <input type="text" name="search"><br>
+        </form>
+        </li>
+    </ul>
+    </nav>
+    <main>
+      <div class="main1">
+        <h1> Complete Tasks! </h1>
 
-    <% if @complete_tasks.empty? %>
-      You have no Completed Tasks
-    <% else %>
-    <ol>
-      <% @complete_tasks.each do |task| %>
-        <li><%= task.body %> &#x2714;</li>
-      <% end %>
-    </ol>
-    <% end %>
-
-    <header>
-    </header>
-    <main class="main1">
+        <% if @complete_tasks.empty? %>
+          You have no Completed Tasks
+        <% else %>
+        <ol>
+          <% @complete_tasks.each do |task| %>
+            <li><%= task.body %> &#x2714;</li>
+          <% end %>
+        </ol>
+        <% end %>
+      </div>
     </main>
+
     <footer>
     </footer>
   </body>

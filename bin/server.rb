@@ -27,7 +27,9 @@ module TaskSetUp
       Task.new(TaskSetUp::ID, "wake up"),
       Task.new(TaskSetUp::ID, "drink coffee"),
       Task.new(TaskSetUp::ID, "go to school"),
-      #Task.new(TaskSetUp::ID, "find a job")
+      Task.new(TaskSetUp::ID, "find a job"),
+      Task.new(TaskSetUp::ID, "go workout"),
+      Task.new(TaskSetUp::ID, "go play hots"),
     ]
   end
 end
